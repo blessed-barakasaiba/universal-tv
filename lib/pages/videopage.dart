@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter/services.dart';
 
 class Videopage extends StatefulWidget {
   final String channelName;
@@ -21,6 +22,13 @@ class _VideopageState extends State<Videopage> {
   @override
   initState() {
     super.initState();
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+
     _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
       ..initialize().then((__) {
         setState(() {});
@@ -30,6 +38,10 @@ class _VideopageState extends State<Videopage> {
 
   @override
   void dispose() {
+    
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     _controller.dispose();
     super.dispose();
   }
